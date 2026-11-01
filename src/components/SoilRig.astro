@@ -1,0 +1,32 @@
+---
+// Fig. 1: generada por figure/build.mjs con el kit de Anatomy (npm run figure).
+import plate from '../generated/soil-rig.html?raw';
+import '../styles/iso.css';
+import '../styles/soil-rig.css';
+---
+
+<div class="iso soil-rig-wrap" data-theme="light">
+  <Fragment set:html={plate} />
+</div>
+
+<script>
+  import '../generated/soil-rig-live.js';
+</script>
+
+<style>
+  .soil-rig-wrap :global(.iso-figure) {
+    margin: 0;
+  }
+  .soil-rig-wrap :global(.iso-plate) {
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .soil-rig-wrap :global(.iso-svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+  }
+  .soil-rig-wrap :global(.iso-legend) {
+    color: var(--ink-soft);
+  }
+</style>

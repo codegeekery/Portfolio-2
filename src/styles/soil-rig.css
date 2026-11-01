@@ -1,0 +1,93 @@
+/* Fig. 1: tokens del kit de Anatomy llevados a la paleta de Horizonte. */
+.iso[data-theme='light'] {
+  --anatomy-page: #e6eae3;
+  --anatomy-card: #f4f6f2;
+  --anatomy-text: #5c534a;
+  --anatomy-strong: #2b221c;
+  --anatomy-muted: #7a7268;
+  --anatomy-paper: #f4f6f2;
+  --anatomy-face: #fbfcfa;
+  --anatomy-top: #fbfcfa;
+  --anatomy-shade-0: #d6dbd2;
+  --anatomy-shade-1: #dfe3db;
+  --anatomy-shade-2: #e8ebe4;
+  --anatomy-shade-3: #f0f2ed;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #e9eeec;
+  --anatomy-hi: #2b221c;
+  --anatomy-mid: #7f8579;
+  --anatomy-lo: #a8aea4;
+  --anatomy-faint: #cdd2c8;
+  --anatomy-lit: #2a4a46;
+  --anatomy-halo: #4f5a4c;
+  --anatomy-halo-opacity: 0.3;
+  --anatomy-dot: #3a332c;
+
+  /* Colores Munsell de los horizontes (los mismos del perfil en site.ts). */
+  --soil-o: #2e2620;
+  --soil-a: #5a4636;
+  --soil-b: #9a6a3e;
+}
+
+/* Cada capa del monolito reemplaza los grises por su color, sombreado por cara. */
+.soil-rig .soil-o { --soil: var(--soil-o); }
+.soil-rig .soil-a { --soil: var(--soil-a); }
+.soil-rig .soil-b { --soil: var(--soil-b); }
+
+.soil-rig .soil > .iso-fill { fill: var(--soil); }
+.soil-rig .soil > .iso-top { fill: color-mix(in srgb, var(--soil) 88%, #fff); }
+.soil-rig .soil > .iso-shade[data-shade='0'] { fill: color-mix(in srgb, var(--soil) 78%, #000); }
+.soil-rig .soil > .iso-shade[data-shade='1'] { fill: color-mix(in srgb, var(--soil) 86%, #000); }
+.soil-rig .soil > .iso-shade[data-shade='2'] { fill: color-mix(in srgb, var(--soil) 94%, #000); }
+.soil-rig .soil > .iso-shade[data-shade='3'] { fill: var(--soil); }
+.soil-rig .soil > .iso-line { stroke: color-mix(in srgb, var(--soil) 60%, #000); }
+
+.soil-rig .soil-stone {
+  fill: color-mix(in srgb, var(--soil-b) 55%, #e8dfcf);
+  stroke: color-mix(in srgb, var(--soil-b) 60%, #000);
+  stroke-width: 0.4;
+}
+.soil-rig .soil-roots { --anatomy-lo: #241a12; }
+.soil-rig .soil-hole { fill: #1d1712; stroke: #120d09; stroke-width: 0.5; }
+
+.soil-rig .probe-slot { fill: #aab4ae; }
+.soil-rig .probe-core { stroke: none; }
+.soil-rig .probe-core.soil-o { fill: var(--soil-o); }
+.soil-rig .probe-core.soil-a { fill: var(--soil-a); }
+.soil-rig .probe-core.soil-b { fill: var(--soil-b); }
+
+/* La tarjeta usa la tipografía del sitio: sin monoespaciada ni mayúsculas. */
+.iso .iso-plate-corner {
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.iso .iso-plate-corner[data-corner='title'] {
+  color: var(--anatomy-strong);
+  font-weight: 620;
+}
+.iso .iso-legend {
+  font-size: 0.85rem;
+}
+.soil-rig-stage {
+  cursor: ns-resize;
+  touch-action: pan-y;
+}
+.soil-rig-stage:focus-visible {
+  outline: 3px solid var(--anatomy-lit);
+  outline-offset: 4px;
+}
+
+/* En una tarjeta angosta la pista sube un renglón para no chocar con la lectura. */
+.iso .iso-plate {
+  container-type: inline-size;
+}
+@container (max-width: 560px) {
+  .iso .iso-plate-corner[data-corner='hint'] {
+    bottom: 1.4rem;
+  }
+}
+.iso .iso-plate:has(.soil-rig-stage) {
+  padding-bottom: 4.5rem;
+}

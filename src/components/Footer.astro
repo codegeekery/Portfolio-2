@@ -1,0 +1,78 @@
+---
+import { contact } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__cta">
+    <h2>Pide tu kit ahora y ten el plan listo antes de la siembra de primavera.</h2>
+    <div class="footer__actions">
+      <a class="button" href={contact.whatsapp}>Pedir un kit por WhatsApp</a>
+      <a class="footer__mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+    </div>
+  </div>
+  <div class="wrap footer__base">
+    <p>Horizonte, laboratorio de suelos en {contact.lab}. WhatsApp {contact.whatsappLabel}.</p>
+    <p>© {year} Horizonte. Empresa ficticia, sitio creado para portafolio.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--sheet);
+  }
+
+  .footer__cta {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: 2rem;
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+  }
+
+  h2 {
+    font-size: var(--step-3);
+    max-width: 20ch;
+  }
+
+  .footer__actions {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+
+  .button {
+    background: var(--sheet);
+    color: var(--ink);
+  }
+
+  .button:hover {
+    background: #b9d0cc;
+  }
+
+  .footer__mail {
+    color: var(--sheet);
+  }
+
+  .footer a:focus-visible {
+    outline-color: #b9d0cc;
+  }
+
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid rgb(244 246 242 / 0.18);
+    font-size: var(--step--1);
+    color: #bfb5a9;
+  }
+
+  @media (max-width: 800px) {
+    .footer__cta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

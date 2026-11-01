@@ -1,0 +1,279 @@
+---
+import { sampleReport as r } from '../data/site';
+
+const pos = (v: number, [min, max]: readonly number[]) => `${((v - min) / (max - min)) * 100}%`;
+const fmt = (n: number) => n.toLocaleString('es-MX');
+---
+
+<section id="informe" class="report wrap" aria-labelledby="report-title">
+  <div class="report__intro">
+    <h2 id="report-title">Un informe que dice qué comprar y cuánto</h2>
+    <p>
+      Cada valor viene comparado con el rango que necesita tu cultivo, y al final tienes las dosis por hectárea. Este es un
+      extracto de un análisis básico real, con los datos de la parcela cambiados.
+    </p>
+  </div>
+
+  <article class="sheet" aria-label={`Informe de ejemplo, muestra ${r.id}`}>
+    <header class="sheet__head">
+      <p class="sheet__id">Muestra {r.id}</p>
+      <dl>
+        {r.meta.map(([k, v]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </header>
+
+    <table class="sheet__table">
+      <caption class="visually-hidden">Resultados del análisis comparados con el rango óptimo para maíz</caption>
+      <thead>
+        <tr>
+          <th scope="col">Parámetro</th>
+          <th scope="col" class="num">Resultado</th>
+          <th scope="col" class="bar-col">Rango óptimo para maíz</th>
+          <th scope="col">Lectura</th>
+        </tr>
+      </thead>
+      <tbody>
+        {r.rows.map((row) => (
+          <tr>
+            <th scope="row">{row.name}</th>
+            <td class="num">
+              {fmt(row.value)} <span class="unit">{row.unit}</span>
+            </td>
+            <td class="bar-col">
+              <div class="bar" role="img" aria-label={`Óptimo entre ${fmt(row.optimal[0])} y ${fmt(row.optimal[1])} ${row.unit}`}>
+                <span class="bar__ok" style={`left:${pos(row.optimal[0], row.scale)}; right:calc(100% - ${pos(row.optimal[1], row.scale)})`} />
+                <span class="bar__val" data-status={row.status} style={`left:${pos(row.value, row.scale)}`} />
+              </div>
+              <div class="bar__range" aria-hidden="true">
+                {fmt(row.optimal[0])} a {fmt(row.optimal[1])}
+              </div>
+            </td>
+            <td>
+              <strong class="status" data-status={row.status}>{row.status}</strong>
+              <span class="note">{row.note}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <section class="sheet__plan" aria-labelledby="plan-title">
+      <h3 id="plan-title">Plan para este ciclo</h3>
+      <ul>
+        {r.recommendation.map((line) => <li>{line}</li>)}
+      </ul>
+    </section>
+  </article>
+</section>
+
+<style>
+  .report {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding-block: clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .report__intro p {
+    margin-top: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 30rem;
+  }
+
+  .sheet {
+    background: var(--sheet);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    border-radius: 2px;
+    box-shadow:
+      0 1px 0 var(--rule),
+      0 18px 40px -24px rgb(43 34 28 / 0.35);
+  }
+
+  .sheet__head {
+    display: grid;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .sheet__id {
+    font-weight: 760;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--step-1);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem 1.5rem;
+    margin: 0;
+  }
+
+  dt {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 560;
+  }
+
+  .sheet__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .sheet__table thead th {
+    padding: 0.9rem 0.75rem 0.5rem 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .sheet__table tbody th,
+  .sheet__table td {
+    padding: 0.85rem 0.75rem 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .sheet__table tbody th {
+    font-weight: 620;
+  }
+
+  .num {
+    text-align: right !important;
+    white-space: nowrap;
+    font-weight: 620;
+  }
+
+  .unit {
+    font-weight: 400;
+    color: var(--ink-soft);
+    font-size: 0.85em;
+  }
+
+  .bar-col {
+    width: 34%;
+  }
+
+  .bar {
+    position: relative;
+    height: 0.6rem;
+    margin-top: 0.45rem;
+    background: var(--rule);
+    border-radius: 1px;
+  }
+
+  .bar__ok {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: color-mix(in srgb, var(--gley) 45%, var(--sheet));
+  }
+
+  .bar__val {
+    position: absolute;
+    top: -0.35rem;
+    bottom: -0.35rem;
+    width: 3px;
+    margin-left: -1.5px;
+    background: var(--ink);
+  }
+
+  .bar__range {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .status {
+    display: block;
+    font-weight: 680;
+  }
+
+  .status[data-status='Bajo'] {
+    color: var(--rust);
+  }
+  .status[data-status='Óptimo'] {
+    color: var(--gley-deep);
+  }
+  .status[data-status='Alto'] {
+    color: var(--ink);
+  }
+
+  .note {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  .sheet__plan {
+    margin-top: 1.75rem;
+    padding: 1.25rem 1.4rem;
+    background: color-mix(in srgb, var(--gley) 12%, var(--sheet));
+    border-left: 3px solid var(--gley);
+  }
+
+  .sheet__plan h3 {
+    font-size: var(--step-1);
+  }
+
+  .sheet__plan ul {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 960px) {
+    .report {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* En móvil la tabla se vuelve una lista de fichas por parámetro. */
+  @media (max-width: 640px) {
+    .sheet__table thead {
+      display: none;
+    }
+    .sheet__table,
+    .sheet__table tbody,
+    .sheet__table tr,
+    .sheet__table th,
+    .sheet__table td {
+      display: block;
+      width: auto;
+    }
+    .sheet__table tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.2rem 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sheet__table tbody th,
+    .sheet__table td {
+      padding: 0;
+      border: 0;
+    }
+    .sheet__table .bar-col,
+    .sheet__table td:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

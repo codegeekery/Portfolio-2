@@ -1,0 +1,70 @@
+---
+import { steps } from '../data/site';
+---
+
+<section id="como-funciona" class="steps wrap" aria-labelledby="steps-title">
+  <h2 id="steps-title">De tu parcela al laboratorio, sin salir del rancho</h2>
+  <ol>
+    {steps.map((s, i) => (
+      <li>
+        <span class="steps__n" aria-hidden="true">{i + 1}</span>
+        <h3>{s.title}</h3>
+        <p>{s.body}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .steps {
+    padding-block: clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  h2 {
+    max-width: 18ch;
+  }
+
+  ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem clamp(1.25rem, 3vw, 2.5rem);
+    margin: 3rem 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+
+  li {
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .steps__n {
+    display: block;
+    font-size: 3.4rem;
+    font-weight: 300;
+    font-variation-settings: 'wdth' 62;
+    line-height: 1;
+    color: var(--gley);
+    margin-bottom: 0.9rem;
+  }
+
+  p {
+    margin-top: 0.6rem;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    ol {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import { prices, contact } from '../data/site';
+---
+
+<section id="precios" class="prices wrap" aria-labelledby="prices-title">
+  <div class="prices__intro">
+    <h2 id="prices-title">Precios</h2>
+    <p>
+      Pagas por muestra. El kit, el envío de ida y vuelta y la llamada con el agrónomo van incluidos. Precios en pesos
+      mexicanos con IVA.
+    </p>
+  </div>
+
+  <ul class="prices__list">
+    {prices.map((p) => (
+      <li>
+        <div class="prices__what">
+          <h3>{p.name}</h3>
+          <p>{p.includes}</p>
+        </div>
+        <div class="prices__cost">
+          <span class="prices__amount">{p.price}</span>
+          <span class="prices__per">{p.per}</span>
+        </div>
+        <a class="button button--quiet" href={`${contact.whatsapp}%20(${encodeURIComponent(p.name)})`}>
+          Pedir por WhatsApp
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .prices {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding-block: clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .prices__intro p {
+    margin-top: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 30rem;
+  }
+
+  .prices__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--ink);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11.5rem auto;
+    align-items: start;
+    gap: 1.5rem;
+    padding-block: 1.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .prices__what p {
+    margin-top: 0.4rem;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    max-width: 34rem;
+  }
+
+  .prices__cost {
+    text-align: right;
+  }
+
+  .prices__amount {
+    display: block;
+    font-size: var(--step-2);
+    font-weight: 760;
+    font-variation-settings: 'wdth' 72;
+    line-height: 1.1;
+  }
+
+  .prices__per {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .button {
+    min-height: 2.6rem;
+    padding-block: 0.45rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 960px) {
+    .prices {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    li {
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+    }
+    .prices__what {
+      grid-column: 1 / -1;
+    }
+    .prices__cost {
+      text-align: left;
+    }
+  }
+</style>

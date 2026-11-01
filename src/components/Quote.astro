@@ -1,0 +1,54 @@
+<section class="quote" aria-label="Testimonio">
+  <figure class="wrap">
+    <blockquote>
+      <p>
+        Llevaba años echando triple 17 porque así lo hacía mi papá. El análisis me dijo que de potasio iba sobrado. Este
+        ciclo gasté menos y el maíz salió igual de bueno.
+      </p>
+    </blockquote>
+    <figcaption>
+      <strong>Rosendo Ávila</strong>
+      <span>Maíz y frijol en 8 hectáreas, Tepatitlán, Jalisco</span>
+    </figcaption>
+  </figure>
+</section>
+
+<style>
+  .quote {
+    background: #5a4636;
+    color: var(--sheet);
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  blockquote p {
+    max-width: 24ch;
+    font-size: var(--step-3);
+    font-weight: 500;
+    font-variation-settings: 'wdth' 80;
+    line-height: 1.15;
+    text-indent: -0.4em;
+  }
+
+  blockquote p::before {
+    content: '«';
+  }
+
+  blockquote p::after {
+    content: '»';
+  }
+
+  figcaption {
+    display: grid;
+    gap: 0.15rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  figcaption span {
+    color: #d8cfc3;
+  }
+</style>

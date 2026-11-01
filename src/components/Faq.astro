@@ -1,0 +1,83 @@
+---
+import { faqs } from '../data/site';
+---
+
+<section id="preguntas" class="faq wrap" aria-labelledby="faq-title">
+  <h2 id="faq-title">Preguntas frecuentes</h2>
+  <div class="faq__list">
+    {faqs.map((f) => (
+      <details>
+        <summary>{f.q}</summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  .faq__list {
+    border-top: 2px solid var(--ink);
+  }
+
+  details {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.15rem;
+    font-size: var(--step-1);
+    font-weight: 620;
+    font-variation-settings: 'wdth' 86;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    flex: none;
+    font-weight: 400;
+    color: var(--gley);
+    transition: transform 0.2s;
+  }
+
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  details p {
+    padding-bottom: 1.4rem;
+    max-width: 40rem;
+    color: var(--ink-soft);
+  }
+
+  details[open] p {
+    animation: open 0.25s ease-out;
+  }
+
+  @keyframes open {
+    from {
+      opacity: 0;
+      transform: translateY(-0.4rem);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .faq {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

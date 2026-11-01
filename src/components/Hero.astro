@@ -1,0 +1,80 @@
+---
+import SoilRig from './SoilRig.astro';
+---
+
+<section class="hero wrap" aria-labelledby="hero-title">
+  <div class="hero__text">
+    <h1 id="hero-title">Fertiliza lo que tu suelo necesita, no lo que dice el costal.</h1>
+    <p class="hero__lede">
+      Te enviamos un kit, tomas la muestra en tu parcela y en 10 días recibes un análisis de laboratorio con un plan de
+      fertilización hecho para tu cultivo.
+    </p>
+    <div class="hero__actions">
+      <a class="button" href="#precios">Pedir un kit</a>
+      <a class="button button--quiet" href="#informe">Ver un informe de ejemplo</a>
+    </div>
+    <p class="hero__fine">Desde $690 por muestra, con envío de ida y vuelta incluido.</p>
+  </div>
+  <div class="hero__profile">
+    <SoilRig />
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding-top: clamp(2.5rem, 7vw, 5.5rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .hero__text {
+    align-self: center;
+    padding-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: var(--step-5);
+    font-weight: 800;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    line-height: 0.94;
+    letter-spacing: -0.015em;
+    max-width: 11ch;
+  }
+
+  .hero__lede {
+    margin-top: 1.75rem;
+    max-width: 34rem;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero__fine {
+    margin-top: 1rem;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .hero__profile {
+    align-self: center;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .hero__profile {
+      max-width: 34rem;
+    }
+  }
+</style>

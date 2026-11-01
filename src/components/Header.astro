@@ -1,0 +1,88 @@
+---
+const links = [
+  { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '#informe', label: 'Informe' },
+  { href: '#precios', label: 'Precios' },
+  { href: '#preguntas', label: 'Preguntas' },
+];
+---
+
+<header class="header wrap">
+  <a class="brand" href={import.meta.env.BASE_URL} aria-label="Horizonte, inicio">
+    <svg class="brand__mark" viewBox="0 0 20 20" aria-hidden="true">
+      <rect y="1" width="20" height="3" fill="#2E2620"></rect>
+      <rect y="5" width="20" height="6" fill="#5A4636"></rect>
+      <rect y="12" width="20" height="4" fill="#9A6A3E"></rect>
+      <rect y="17" width="20" height="3" fill="#A89C80"></rect>
+    </svg>
+    <span>Horizonte</span>
+  </a>
+  <nav aria-label="Principal">
+    <ul>
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </nav>
+  <a class="button header__cta" href="#precios">Pedir un kit</a>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-block: 1.25rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 780;
+    font-size: 1.35rem;
+    font-variation-settings: 'wdth' 72;
+    letter-spacing: 0.01em;
+  }
+
+  .brand__mark {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  nav {
+    margin-left: auto;
+  }
+
+  ul {
+    display: flex;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  .header__cta {
+    min-height: 2.6rem;
+    padding-block: 0.5rem;
+  }
+
+  @media (max-width: 860px) {
+    nav {
+      display: none;
+    }
+    .header__cta {
+      margin-left: auto;
+    }
+  }
+</style>
